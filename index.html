@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="jscript.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Vue Js Quiz</title>
+</head>
+<body>
+<div id="app">
+  <h1>{{quiz.title}}</h1>
+  <form>
+  <div v-for="(question, index) in quiz.questions">
+  <div v-show="index === questionIndex">
+  <h2>{{ question.text }}</h2>
+  
+  <ol>
+      <li v-for="response in question.responses">
+        <label>
+          <input type="radio" 
+                 v-bind:value="response.correct" 
+                 v-bind:name="index" 
+                 v-model="userResponses[index]"> {{response.text}}
+        </label>
+      </li>
+    </ol>
+    <button v-if="questionIndex > 0" v-on:click="prev">
+      Previous Question
+    </button>
+    <button v-on:click="next">
+      Next Question
+    </button>
+  </div>
+</div>
+<div v-show="questionIndex === quiz.questions.length">
+  <p>
+    Your total score is: {{ score() }} / {{ quiz.questions.length }}
+  </p>
+</div>
+</div>
+</form>
+</body>
+
+</html>
